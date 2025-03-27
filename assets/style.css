@@ -3,11 +3,13 @@ body {
   color: #eee;
   font-family: 'Segoe UI', sans-serif;
 }
-a.nav-link {
-  margin: 0 10px;
-  color: #f0b90b;
-  text-decoration: none;
+
+.hero {
+  padding: 100px 0;
+  text-align: center;
 }
-a.nav-link:hover {
-  color: #fff;
+
+.btn-primary {
+  background-color: #f0b90b;
+  border: none;
 }
