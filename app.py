@@ -1,29 +1,25 @@
-from dash import Dash, html, dcc, Input, Output
+from dash import Dash, dcc, html, page_container
 import dash_bootstrap_components as dbc
-from core.app_instance import app
-from components.navbar import navbar
-import pages.analyse, pages.dashboard, pages.backtest, pages.education, pages.lab
+
+app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.DARKLY])
 
 app.layout = html.Div([
-    dcc.Location(id='url'),
-    navbar,
-    html.Div(id='page-content')
+    dcc.Location(id="url"),
+    dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink("Accueil", href="/")),
+            dbc.NavItem(dbc.NavLink("Analyse", href="/analyse")),
+            dbc.NavItem(dbc.NavLink("Dashboard", href="/dashboard")),
+            dbc.NavItem(dbc.NavLink("Backtest", href="/backtest")),
+            dbc.NavItem(dbc.NavLink("Éducation", href="/education")),
+            dbc.NavItem(dbc.NavLink("LAB", href="/lab")),
+        ],
+        brand="Forex Analyzer",
+        color="dark",
+        dark=True,
+    ),
+    page_container
 ])
-
-@app.callback(Output('page-content', 'children'), Input('url', 'pathname'))
-def display_page(pathname):
-    if pathname == "/analyse":
-        return pages.analyse.layout
-    elif pathname == "/dashboard":
-        return pages.dashboard.layout
-    elif pathname == "/backtest":
-        return pages.backtest.layout
-    elif pathname == "/education":
-        return pages.education.layout
-    elif pathname == "/lab":
-        return pages.lab.layout
-    else:
-        return html.H1("Page non trouvée", style={"padding": "100px", "color": "red"})
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
